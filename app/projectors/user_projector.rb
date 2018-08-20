@@ -20,5 +20,12 @@ class UserProjector < Sequent::Projector
       event.attributes.slice(:encrypted_password, :updated_at)
     )
   end
-end
 
+  on PasswordUpdatedV2 do |event|
+    update_all_records(
+      UserRecord,
+      event.attributes.slice(:aggregate_id),
+      event.attributes.slice(:encrypted_password, :created_at)
+    )
+  end
+end

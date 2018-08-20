@@ -4,6 +4,6 @@ class CreateUser < Sequent::Command
 end
 
 class UpdatePassword < Sequent::Command
-  attrs encrypted_password: String, updated_at: DateTime
-  validates_presence_of :encrypted_password, :updated_at
+  attrs encrypted_password: String, created_at: DateTime
+  validates_presence_of :encrypted_password, :created_at
 end

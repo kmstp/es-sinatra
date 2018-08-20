@@ -10,7 +10,9 @@ class User < Sequent::AggregateRoot
   end
 
   def update_password(command)
-    apply PasswordUpdated, encrypted_password: command.encrypted_password, updated_at: command.updated_at
+    apply PasswordUpdatedV2, 
+      encrypted_password: command.encrypted_password, 
+      created_at: command.created_at
   end
 
   on UserCreated do |event|    
@@ -21,6 +23,11 @@ class User < Sequent::AggregateRoot
 
   on PasswordUpdated do |event|
     @encrypted_password = event.encrypted_password
-    @password_updated_at = event.updated_at
+    @created_at = event.updated_at
+  end
+
+  on PasswordUpdatedV2 do |event|
+    @encrypted_password = event.encrypted_password
+    @created_at = event.created_at
   end
 end

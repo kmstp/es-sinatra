@@ -1,3 +1,6 @@
+require 'ostruct'
+require_relative '../utils/bcrypt'
+
 class UserCommandHandler < Sequent::CommandHandler
   on CreateUser do |command|
     repository.add_aggregate User.new(command)

@@ -1,6 +1,5 @@
 require 'bundler/setup'
 Bundler.setup
-
 ENV['RACK_ENV'] ||= 'test'
 
 require 'rack/test'
@@ -8,24 +7,19 @@ require 'sequent/test'
 require 'database_cleaner'
 
 require_relative '../users'
-require_relative '../app/app.rb'
+require_relative '../app/api.rb'
+require_relative '../db/init'
+require_relative '../lib/utils/bcrypt'
 
 module RSpecMixin
   include Rack::Test::Methods
-  def app() UsersApp end
+  def app() UsersApi end
 end
-
-db_config = Sequent::Support::Database.read_config('test')
-Sequent::Support::Database.establish_connection(db_config)
-
-Sequent::Support::Database.drop_schema!(Sequent.configuration.view_schema_name)
-
-Sequent::Migrations::ViewSchema.new(db_config: db_config).create_view_tables
-Sequent.configuration.event_store = Sequent::Test::CommandHandlerHelpers::FakeEventStore.new
 
 RSpec.configure do |config|
   config.include RSpecMixin
   config.include Sequent::Test::CommandHandlerHelpers
+  config.include Utils
 
   config.around do |example|
     Sequent.configuration.aggregate_repository.clear

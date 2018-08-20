@@ -5,3 +5,7 @@ end
 class PasswordUpdated < Sequent::Event
   attrs encrypted_password: String, updated_at: DateTime
 end
+
+class PasswordUpdatedV2 < Sequent::Event
+  attrs encrypted_password: String, created_at: DateTime
+end

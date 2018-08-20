@@ -7,6 +7,10 @@ Sequent::Rake::MigrationTasks.new.register_tasks!
 
 task "sequent:migrate:init" => [:db_connect]
 
+task 'db:init', :db_connect do
+  load('db/sequent_schema.rb')
+end
+
 task "db_connect" do
   Sequent::Support::Database.connect!(ENV['RACK_ENV'])
 end

@@ -1,0 +1,25 @@
+{
+  "name": "Sinatra Microservice",
+  "description": "Blazing fast, instant, realtime GraphQL APIs on Postgres with fine grained access control",
+  "keywords": [
+    "database",
+    "api",
+    "graphql",
+    "heroku",
+    "postgres",
+    "sinatra"
+  ],
+  "repository": "https://github.com/hasura/graphql-engine-heroku",
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "free"
+    }
+  },
+  "stack": "ruby",
+  "addons": [
+    {
+      "plan": "heroku-postgresql:hobby-dev"
+    }
+  ]
+}
